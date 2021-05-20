@@ -3,6 +3,9 @@ package com.tq.smartmeterapi.model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Meter entity
+ */
 @Entity
 @Table(name = "meter")
 public class Meter {
@@ -14,7 +17,7 @@ public class Meter {
     @Column(name="serial_number",unique=true)
     private Integer serialNumber;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
     private Client client;
 

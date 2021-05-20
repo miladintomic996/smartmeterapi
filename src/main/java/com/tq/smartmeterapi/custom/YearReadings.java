@@ -1,5 +1,8 @@
 package com.tq.smartmeterapi.custom;
 
+/**
+ * Year Readings DTO
+ */
 public class YearReadings {
 
     private Integer year;

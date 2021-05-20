@@ -2,6 +2,9 @@ package com.tq.smartmeterapi.custom;
 
 import java.util.List;
 
+/**
+ * Year Overview DTO
+ */
 public class YearOverview {
     private Integer year;
     private List<MonthRecord> monthRecords;

@@ -1,12 +1,9 @@
 package com.tq.smartmeterapi.controller;
 
-import com.tq.smartmeterapi.custom.ApiError;
 import com.tq.smartmeterapi.model.Client;
-import com.tq.smartmeterapi.model.Meter;
 import com.tq.smartmeterapi.repository.AddressRepository;
 import com.tq.smartmeterapi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +15,10 @@ import java.util.Optional;
 
 import static com.tq.smartmeterapi.custom.Constants.CLIENT_WITH_ADDRESS_ALREADY_EXIST;
 
+/**
+ * Controller for client CRUD operations
+ */
 @RestController
-@ControllerAdvice
 @RequestMapping("/api")
 public class ClientController {
 
@@ -29,6 +28,11 @@ public class ClientController {
     @Autowired
     private AddressRepository addressRepository;
 
+    /**
+     * This method will return all clients from database
+     *
+     * @return list of Clients
+     */
     @GetMapping("/client")
     public ResponseEntity<List<Client>> getAllClients() {
         try {
@@ -45,6 +49,12 @@ public class ClientController {
         }
     }
 
+    /**
+     * This method will return specific client data
+     *
+     * @param id ID of the client
+     * @return Client data
+     */
     @GetMapping("/client/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable("id") long id) {
         Optional<Client> clientsData = clientRepository.findByIdAndActive(id, true);
@@ -52,6 +62,12 @@ public class ClientController {
         return clientsData.map(client -> new ResponseEntity<>(client, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Create new client record in database
+     *
+     * @param client Client object to be saved
+     * @return Created clients data
+     */
     @PostMapping("/client")
     public ResponseEntity<Object> createClient(@RequestBody Client client) {
         try {
@@ -67,7 +83,7 @@ public class ClientController {
             );
             if (addressAlreadyExist) {
                 errors.add(CLIENT_WITH_ADDRESS_ALREADY_EXIST);
-                return new ResponseEntity<>(new ApiError(HttpStatus.CONFLICT,CLIENT_WITH_ADDRESS_ALREADY_EXIST,errors),new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
             }
             Client _client = clientRepository
                     .save(client);
@@ -77,6 +93,12 @@ public class ClientController {
         }
     }
 
+    /**
+     * Delete specific client from database
+     *
+     * @param id ID of the client
+     * @return Deleted clients data
+     */
     @DeleteMapping(value = "/client/{id}")
     public ResponseEntity<Boolean> deleteClient(@PathVariable Long id) {
         try {
@@ -89,9 +111,8 @@ public class ClientController {
                 return new ResponseEntity<>(true, HttpStatus.OK);
             }
 
-            return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
-        }
-        catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
             return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

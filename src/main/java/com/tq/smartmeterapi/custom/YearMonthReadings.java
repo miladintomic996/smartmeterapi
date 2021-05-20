@@ -1,5 +1,8 @@
 package com.tq.smartmeterapi.custom;
 
+/**
+ * Year-Month Readings Record DTO
+ */
 public class YearMonthReadings {
     private Integer year;
     private MonthRecord monthRecord;

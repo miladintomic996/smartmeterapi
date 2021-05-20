@@ -1,8 +1,13 @@
 package com.tq.smartmeterapi.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Client entity
+ */
 @Entity
 @Table(name = "client")
 public class Client {
@@ -10,13 +15,15 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name="first_name")
     private String firstName;
 
+    @NotNull
     @Column(name="last_name")
     private String lastName;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id")
     private Address address;
 

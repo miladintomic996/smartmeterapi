@@ -2,6 +2,9 @@ package com.tq.smartmeterapi.model;
 
 import javax.persistence.*;
 
+/**
+ * Address entity
+ */
 @Entity
 @Table(name = "address")
 public class Address {

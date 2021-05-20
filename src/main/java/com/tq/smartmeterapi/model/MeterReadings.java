@@ -5,6 +5,9 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * MeterReadings entity
+ */
 @Entity
 @Table(name = "meter_readings")
 public class MeterReadings {

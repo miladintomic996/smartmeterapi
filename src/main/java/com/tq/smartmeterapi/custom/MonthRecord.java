@@ -2,8 +2,9 @@ package com.tq.smartmeterapi.custom;
 
 import com.tq.smartmeterapi.Utils.Utils;
 
-import java.text.DateFormatSymbols;
-
+/**
+ * Month Record DTO
+ */
 public class MonthRecord {
     private Long total;
     private Integer month;

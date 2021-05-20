@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for Meter CRUD operations
+ */
 @RestController
 @RequestMapping("/api")
 public class MeterController {
@@ -24,6 +27,10 @@ public class MeterController {
     @Autowired
     private ClientRepository clientRepository;
 
+    /**
+     *  This method will return all clients from database
+     * @return list of Meters
+     */
     @GetMapping("/meter")
     public ResponseEntity<List<Meter>> getAllMeters() {
         try {
@@ -40,6 +47,11 @@ public class MeterController {
         }
     }
 
+    /**
+     * This method will return specific meter data
+     * @param id ID of the meter
+     * @return Meter data
+     */
     @GetMapping("/meter/{id}")
     public ResponseEntity<Meter> getMeterByid(@PathVariable("id") long id) {
         try {
@@ -53,6 +65,11 @@ public class MeterController {
         }
     }
 
+    /**
+     * Create new meter record in database
+     * @param meter Meter object to be saved
+     * @return Created clients data
+     */
     @PostMapping("/meter")
     public ResponseEntity<Object> createMeterReading(@RequestBody Meter meter) {
         try {
@@ -73,6 +90,11 @@ public class MeterController {
         }
     }
 
+    /**
+     * Update meter data
+     * @param id ID of the meter that needs to be updated
+     * @return Updated meter data
+     */
     @PutMapping("/meter/{id}")
     public ResponseEntity<Object> updateMeterReading(@RequestBody Meter meter, @PathVariable Long id) {
         try {
@@ -90,6 +112,11 @@ public class MeterController {
         }
     }
 
+    /**
+     * Delete specific meter from database
+     * @param id ID of the meter
+     * @return Deleted meter data
+     */
     @DeleteMapping(value = "/meter/{id}")
     public ResponseEntity<Boolean> deleteMeter(@PathVariable Long id) {
         try {
